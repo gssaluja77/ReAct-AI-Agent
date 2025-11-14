@@ -42,9 +42,9 @@ def run_agent(messages):
         return AIMessage(content=f"Error: {str(e)}\n\nPlease try rephrasing your request or provide more specific details.")
 
 def main():
-    print("*************************************************")
-    print("Ask me anything...")
-    print("*************************************************")
+    print("\n*************************************************")
+    print("Hi there! What do you want me to do for you?")
+    print("*************************************************\n")
 
     history = [SystemMessage(content=system_prompt)]
     current_iterations = 0
@@ -59,11 +59,10 @@ def main():
             break
         
         history.append(HumanMessage(content=user_query))
-        print("Agent: ", end="", flush=True)
+        print("\nAgent: ", end="", flush=True)
         res = run_agent(history)
         history.append(res)
-        print(res.content)
-        print()
+        print(res.content + '\n')
         current_iterations += 1
 
 if __name__ == "__main__":
