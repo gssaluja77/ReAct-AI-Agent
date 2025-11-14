@@ -39,7 +39,7 @@ def run_agent(messages):
         return AIMessage(content=ai_text)
         
     except Exception as e:
-        return AIMessage(content=f"Error: {str(e)}\n\nPlease try rephrasing your request or provide more specific details.")
+        return AIMessage(content=f"Error: Please try rephrasing your request or provide more specific details.")
 
 def main():
     print("\n*************************************************")
@@ -54,16 +54,20 @@ def main():
             break
         user_query = input("You: ").strip()
 
-        if user_query.lower() in ['exit', 'quit', ""]:
+        if user_query.lower() in ['/bye']:
             print("Goodbye!")
             break
         
-        history.append(HumanMessage(content=user_query))
         print("\nAgent: ", end="", flush=True)
-        res = run_agent(history)
-        history.append(res)
-        print(res.content + '\n')
-        current_iterations += 1
+        if user_query == "":
+            res = "Empty query! Please provide some input."
+            print(res + '\n')
+        else:
+            history.append(HumanMessage(content=user_query))
+            res = run_agent(history)
+            history.append(res)
+            current_iterations += 1
+            print(res.content + '\n')
 
 if __name__ == "__main__":
     main()

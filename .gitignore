@@ -8,6 +8,7 @@ wheels/
 test_folder
 IdeasAndIssues
 working_directory
+.DS_Store
 
 # Virtual environments
 .venv
