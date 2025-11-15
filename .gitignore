@@ -13,3 +13,4 @@ working_directory
 # Virtual environments
 .venv
 .env
+sandbox
