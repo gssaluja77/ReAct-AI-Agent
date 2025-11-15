@@ -59,7 +59,6 @@ def test():
     result = run_python_file("calculator", "lorem.txt")
     print(result)
 
-    
     pass
 
 

@@ -4,16 +4,21 @@ from langchain.tools import tool
 
 SANDBOX_DIRECTORY = os.path.abspath("sandbox")
 
+
 @tool(
     description="Executes a Python file within the working directory and returns the output from the interpreter.",
-   args_schema={
-    "type": "object",
-    "properties": {
-        "file_path": {"type": "string", "description": "Python file to execute"},
-        "args": {"type": "array", "items": {"type": "string"}, "description": "List of arguments"}
+    args_schema={
+        "type": "object",
+        "properties": {
+            "file_path": {"type": "string", "description": "Python file to execute"},
+            "args": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "List of arguments",
+            },
+        },
+        "required": ["file_path"],
     },
-    "required": ["file_path"]
-}
 )
 def run_python_file(file_path, args=[]):
     abs_file_path = os.path.abspath(os.path.join(SANDBOX_DIRECTORY, file_path))
@@ -24,18 +29,14 @@ def run_python_file(file_path, args=[]):
         return f'Error: File "{file_path}" not found.'
     if not abs_file_path.endswith(".py"):
         return f'Error: "{file_path}" is not a Python file.'
-    
+
     try:
         commands = ["python", abs_file_path]
         if args:
             commands.extend(args)
 
         res = subprocess.run(
-            commands,
-            timeout=30,
-            capture_output=True,
-            text=True,
-            cwd=SANDBOX_DIRECTORY
+            commands, timeout=30, capture_output=True, text=True, cwd=SANDBOX_DIRECTORY
         )
         output = []
         if res.stdout:

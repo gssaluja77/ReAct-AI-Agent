@@ -3,7 +3,10 @@ import os
 
 SANDBOX_DIRECTORY = os.path.abspath("sandbox")
 
-@tool(description="Creates a new directory at the specified path within the working directory (sandbox).")
+
+@tool(
+    description="Creates a new directory at the specified path within the working directory (sandbox)."
+)
 def create_directory(directory_path: str) -> str:
     """
     Creates a new directory at the specified path within the sandbox.
@@ -18,7 +21,7 @@ def create_directory(directory_path: str) -> str:
             return f'Error: Directory "{directory_path}" already exists.'
         else:
             return f'Error: Cannot create directory. A file with the name "{directory_path}" already exists.'
-    
+
     try:
         os.makedirs(abs_dir_path)
         return f'Successfully created directory: "{directory_path}"'
