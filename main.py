@@ -2,9 +2,8 @@ import os
 from dotenv import load_dotenv
 from prompts import system_prompt
 from config import MAX_ITERS
-
-from langchain_google_genai import ChatGoogleGenerativeAI
-# from langchain_ollama import ChatOllama
+# from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 from langchain.agents import create_agent
 from functions.get_files_info import get_files_info
@@ -20,10 +19,16 @@ style = Style.from_dict({"placeholder": "#888888 italic"})
 
 load_dotenv()
 
-api_key = os.environ.get("GEMINI_API_KEY")
+# openrouter variables
+openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+openrouter_url = os.getenv("OPENROUTER_URL")
+openrouter_model = os.getenv("OPENROUTER_MODEL")
+
+# ollama variables
 model = os.environ.get("MODEL")
-# coding_temperature = os.environ.get("CODING_TEMPERATURE")
-temperature = os.environ.get("TEMPERATURE")
+# temperature = os.environ.get("TEMPERATURE")
+# top_p = os.environ.get("TOP_P")
+coding_temperature = os.environ.get("CODING_TEMPERATURE")
 coding_top_p = os.environ.get("CODING_TOP_P")
 num_predict = os.environ.get("NUM_PREDICT")
 
@@ -36,14 +41,22 @@ tools = [
     delete_path,
 ]
 
-client = ChatGoogleGenerativeAI(model=model, google_api_key=api_key, temperature=float(temperature))
-# client = ChatOllama(
-#     model=model,
-#     temperature=float(coding_temperature),
-#     validate_model_on_init=True,
-#     num_predict=int(num_predict),
-#     top_p=float(coding_top_p),
+# client = ChatOpenAI(
+#     model=openrouter_model,
+#     api_key=openrouter_api_key,
+#     base_url=openrouter_url,
+#     temperature=temperature,
 # )
+
+client = ChatOllama(
+    model=model,
+    temperature=float(coding_temperature),
+    validate_model_on_init=True,
+    num_predict=int(num_predict),
+    top_p=float(coding_top_p),
+    options={"thinking": False},
+)
+
 agent = create_agent(model=client, tools=tools, system_prompt=system_prompt)
 
 
