@@ -4,14 +4,10 @@ import shutil
 
 SANDBOX_DIRECTORY = os.path.abspath("sandbox")
 
-
 @tool(
-    description="Deletes a file or directory (and its contents) at the specified path within the working directory (sandbox)."
+    description="Deletes a file or directory (and its contents) at the specified path within the working directory."
 )
 def delete_path(path: str) -> str:
-    """
-    Deletes a specified file or recursively deletes a directory within the sandbox.
-    """
     abs_path = os.path.abspath(os.path.join(SANDBOX_DIRECTORY, path))
 
     if not abs_path.startswith(SANDBOX_DIRECTORY):

@@ -3,7 +3,6 @@ from langchain.tools import tool
 
 SANDBOX_DIRECTORY = os.path.abspath("sandbox")
 
-
 @tool(
     description="Lists files in the specified directory along with their sizes, constrained to the working directory."
 )

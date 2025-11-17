@@ -3,14 +3,10 @@ import os
 
 SANDBOX_DIRECTORY = os.path.abspath("sandbox")
 
-
 @tool(
-    description="Creates a new directory at the specified path within the working directory (sandbox)."
+    description="Creates a new directory at the specified path within the working directory."
 )
-def create_directory(directory_path: str) -> str:
-    """
-    Creates a new directory at the specified path within the sandbox.
-    """
+def create_directory(directory_path: str) -> str:        
     abs_dir_path = os.path.abspath(os.path.join(SANDBOX_DIRECTORY, directory_path))
 
     if not abs_dir_path.startswith(SANDBOX_DIRECTORY):
