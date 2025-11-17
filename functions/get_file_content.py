@@ -4,7 +4,6 @@ from config import CHARACTER_LIMIT
 
 SANDBOX_DIRECTORY = os.path.abspath("sandbox")
 
-
 @tool(
     description=f"Reads and returns the first {CHARACTER_LIMIT} characters of the content from a specified file within the working directory."
 )
