@@ -14,3 +14,5 @@ working_directory
 .venv
 .env
 sandbox
+.vscode
+main_test.py

@@ -4,6 +4,7 @@ Developed a ReAct style AI agent using Python that can analyze and modify files 
 
 **How to run:**
 
+- For running local models, be sure to have ollama installed on your system
 - Install the uv package manager using `pip install uv` or `brew install uv`
 - Install latest (or >3.14) version of Python using `uv python install`
 - Create a virtual environment with `uv venv` and activate it using `source .venv/bin/activate`
