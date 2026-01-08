@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from prompts import system_prompt
 from config import MAX_ITERS
 
-# from langchain_openai import ChatOpenAI
 from langchain_ollama import ChatOllama
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 from langchain.agents import create_agent
@@ -20,18 +19,17 @@ style = Style.from_dict({"placeholder": "#888888 italic"})
 
 load_dotenv()
 
-# openrouter variables
-# openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
-# openrouter_url = os.getenv("OPENROUTER_URL")
-# openrouter_model = os.getenv("OPENROUTER_MODEL")
-
 # ollama variables
 model = os.environ.get("MODEL")
+num_predict = os.environ.get("NUM_PREDICT")
+
+# for any kind of tasks
 # temperature = os.environ.get("TEMPERATURE")
 # top_p = os.environ.get("TOP_P")
+
+# for code heavy tasks
 coding_temperature = os.environ.get("CODING_TEMPERATURE")
 coding_top_p = os.environ.get("CODING_TOP_P")
-num_predict = os.environ.get("NUM_PREDICT")
 
 tools = [
     get_files_info,
@@ -41,13 +39,6 @@ tools = [
     create_directory,
     delete_path,
 ]
-
-# client = ChatOpenAI(
-#     model=openrouter_model,
-#     api_key=openrouter_api_key,
-#     base_url=openrouter_url,
-#     temperature=temperature,
-# )
 
 client = ChatOllama(
     model=model,
